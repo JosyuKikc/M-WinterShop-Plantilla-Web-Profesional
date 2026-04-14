@@ -1,0 +1,3100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinterShop — Streetwear & Urban Style</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #ffffff;
+            --accent: #4f46e5;
+            --accent-light: #818cf8;
+            --accent-glow: rgba(79, 70, 229, 0.3);
+            --gray-50: #fafafa;
+            --gray-100: #f4f4f5;
+            --gray-200: #e4e4e7;
+            --gray-300: #d4d4d8;
+            --gray-400: #a1a1aa;
+            --gray-500: #71717a;
+            --gray-600: #52525b;
+            --gray-700: #3f3f46;
+            --gray-800: #27272a;
+            --gray-900: #18181b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gradient-1: linear-gradient(135deg, #4f46e5, #7c3aed, #ec4899);
+            --gradient-2: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --shadow-glow: 0 0 40px rgba(79, 70, 229, 0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* === CURSOR PERSONALIZADO === */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform 0.1s;
+        }
+
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent-light);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99998;
+            transition: all 0.15s ease-out;
+            transform: translate(-50%, -50%);
+        }
+
+        /* === LOADER === */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loader-wrapper.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 3px;
+            background: var(--gray-800);
+            border-radius: 10px;
+            margin: 20px auto 0;
+            overflow: hidden;
+        }
+
+        .loader-bar::after {
+            content: '';
+            display: block;
+            width: 40%;
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            animation: loading 1.2s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(350%); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* === PROMO BAR === */
+        .promo-bar {
+            background: var(--gradient-1);
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .promo-bar span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .promo-timer {
+            display: inline-flex;
+            gap: 5px;
+            margin-left: 10px;
+        }
+
+        .promo-timer-unit {
+            background: rgba(0,0,0,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* === NAVBAR === */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+            padding: 0;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .navbar.scrolled .promo-bar {
+            display: none;
+        }
+
+        .nav-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-logo .logo-icon {
+            width: 35px;
+            height: 35px;
+            background: var(--gradient-1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--gray-300);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-action-btn {
+            background: none;
+            border: none;
+            color: var(--gray-300);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-action-btn:hover {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.65rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* === HERO === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--gradient-2);
+        }
+
+        .hero-bg-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            top: 10%;
+            right: 15%;
+        }
+
+        .hero-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: #ec4899;
+            bottom: 20%;
+            left: 10%;
+            animation-delay: -3s;
+        }
+
+        .hero-orb-3 {
+            width: 200px;
+            height: 200px;
+            background: #7c3aed;
+            top: 50%;
+            left: 50%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        .hero-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(79, 70, 229, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(79, 70, 229, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(79, 70, 229, 0.1);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            margin-bottom: 25px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero-title .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--gray-400);
+            margin-bottom: 35px;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 60px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--secondary);
+            border: 1.5px solid var(--gray-700);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: rgba(79, 70, 229, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-stat-label {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInRight 1s ease 0.3s both;
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .hero-image-card {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 3/4;
+        }
+
+        .hero-image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: var(--gray-500);
+        }
+
+        .hero-image-placeholder i {
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+
+        .hero-image-placeholder span {
+            font-size: 0.85rem;
+        }
+
+        .hero-floating-card {
+            position: absolute;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-md);
+            padding: 15px 20px;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        .hero-floating-card-1 {
+            bottom: 10%;
+            left: -15%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-floating-card-2 {
+            top: 10%;
+            right: -10%;
+            animation-delay: -2s;
+        }
+
+        .floating-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .floating-icon.green { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .floating-icon.purple { background: rgba(79, 70, 229, 0.15); color: var(--accent-light); }
+
+        .floating-text h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .floating-text p {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* === MARQUEE === */
+        .marquee-section {
+            background: var(--gray-900);
+            border-top: 1px solid var(--gray-800);
+            border-bottom: 1px solid var(--gray-800);
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: marquee 25s linear infinite;
+            width: max-content;
+        }
+
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 40px;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gray-400);
+        }
+
+        .marquee-item i {
+            color: var(--accent-light);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* === FEATURES === */
+        .features {
+            padding: 80px 5%;
+            background: var(--primary);
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .feature-icon {
+            width: 55px;
+            height: 55px;
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.3rem;
+            color: var(--accent-light);
+        }
+
+        .feature-card h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            line-height: 1.5;
+        }
+
+        /* === SECTION HEADERS === */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(79, 70, 229, 0.1);
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--gray-500);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* === COLLECTIONS === */
+        .collections {
+            padding: 100px 5%;
+            background: var(--primary);
+        }
+
+        .collections-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .collection-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            cursor: pointer;
+            group: true;
+        }
+
+        .collection-card-bg {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .collection-card:hover .collection-card-bg {
+            transform: scale(1.05);
+        }
+
+        .collection-card-bg i {
+            font-size: 4rem;
+            color: var(--gray-700);
+        }
+
+        .collection-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            z-index: 2;
+        }
+
+        .collection-overlay h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .collection-overlay p {
+            font-size: 0.85rem;
+            color: var(--gray-400);
+        }
+
+        .collection-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--accent);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        /* === PRODUCTS === */
+        .products {
+            padding: 100px 5%;
+            background: var(--gray-900);
+        }
+
+        .products-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--gray-700);
+            background: transparent;
+            color: var(--gray-400);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .products-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background: var(--primary);
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            border-color: var(--gray-700);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .product-image {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image i {
+            font-size: 3rem;
+            color: var(--gray-700);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+
+        .product-badges {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 2;
+        }
+
+        .product-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-sale {
+            background: var(--danger);
+            color: white;
+        }
+
+        .badge-new {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-hot {
+            background: var(--warning);
+            color: var(--primary);
+        }
+
+        .product-actions {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .product-card:hover .product-actions {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .product-action-btn {
+            width: 36px;
+            height: 36px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--gray-700);
+            border-radius: var(--radius-sm);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .product-action-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            font-size: 0.7rem;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
+        .product-rating .stars {
+            color: var(--warning);
+            font-size: 0.75rem;
+        }
+
+        .product-rating span {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-price .current {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .product-price .original {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            text-decoration: line-through;
+        }
+
+        .product-price .discount {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .product-add-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: transparent;
+            border: 1.5px solid var(--gray-700);
+            border-radius: var(--radius-sm);
+            color: var(--secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .product-add-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* === BANNER === */
+        .banner-section {
+            padding: 100px 5%;
+            background: var(--primary);
+        }
+
+        .banner {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--gradient-2);
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-xl);
+            padding: 80px;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .banner-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--accent);
+            filter: blur(100px);
+            opacity: 0.15;
+            top: -50px;
+            right: -50px;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .banner-tag {
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .banner-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .banner-desc {
+            color: var(--gray-400);
+            font-size: 1rem;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .banner-timer {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .timer-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--gray-700);
+            border-radius: var(--radius-md);
+            padding: 15px 20px;
+            text-align: center;
+            min-width: 70px;
+        }
+
+        .timer-box .number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-box .label {
+            font-size: 0.65rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .banner-visual {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .banner-image-placeholder {
+            width: 350px;
+            height: 350px;
+            background: var(--gray-800);
+            border-radius: var(--radius-xl);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--gray-600);
+            border: 1px solid var(--gray-700);
+        }
+
+        .banner-image-placeholder i {
+            font-size: 3rem;
+        }
+
+        /* === REVIEWS === */
+        .reviews {
+            padding: 100px 5%;
+            background: var(--gray-900);
+        }
+
+        .reviews-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .review-card {
+            background: var(--primary);
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            border-color: var(--gray-700);
+            transform: translateY(-5px);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .review-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .review-author h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .review-author p {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .review-stars {
+            color: var(--warning);
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+        }
+
+        .review-text {
+            font-size: 0.9rem;
+            color: var(--gray-400);
+            line-height: 1.7;
+        }
+
+        .review-verified {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* === RATING SUMMARY === */
+        .rating-summary {
+            max-width: 1400px;
+            margin: 0 auto 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .rating-big {
+            text-align: center;
+        }
+
+        .rating-big .number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .rating-big .stars {
+            color: var(--warning);
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+
+        .rating-big .count {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        .rating-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .rating-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .rating-bar-row .label {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            width: 15px;
+            text-align: right;
+        }
+
+        .rating-bar {
+            width: 200px;
+            height: 8px;
+            background: var(--gray-800);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .rating-bar-fill {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .rating-bar-row .count {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            width: 30px;
+        }
+
+        /* === FAQ === */
+        .faq {
+            padding: 100px 5%;
+            background: var(--primary);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border: 1px solid var(--gray-800);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: var(--gray-700);
+        }
+
+        .faq-item.active {
+            border-color: var(--accent);
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: var(--gray-900);
+            transition: var(--transition);
+        }
+
+        .faq-question h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding-right: 20px;
+        }
+
+        .faq-question .icon {
+            font-size: 1.2rem;
+            color: var(--accent-light);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-question .icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .faq-answer-content {
+            padding: 0 25px 20px;
+            font-size: 0.9rem;
+            color: var(--gray-400);
+            line-height: 1.7;
+        }
+
+        /* === NEWSLETTER === */
+        .newsletter {
+            padding: 100px 5%;
+            background: var(--gray-900);
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .newsletter-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 1.5rem;
+            color: var(--accent-light);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 14px 20px;
+            background: var(--primary);
+            border: 1px solid var(--gray-700);
+            border-radius: var(--radius-md);
+            color: var(--secondary);
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .newsletter-input::placeholder {
+            color: var(--gray-600);
+        }
+
+        /* === FOOTER === */
+        .footer {
+            background: var(--primary);
+            border-top: 1px solid var(--gray-800);
+            padding: 80px 5% 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand .footer-logo .logo-icon {
+            width: 35px;
+            height: 35px;
+            background: var(--gradient-1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .footer-brand p {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--gray-700);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+            background: rgba(79, 70, 229, 0.1);
+        }
+
+        .footer-col h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray-800);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+        }
+
+        .footer-payments {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .footer-payments .payment-icon {
+            width: 40px;
+            height: 25px;
+            background: var(--gray-800);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            color: var(--gray-400);
+            font-weight: 700;
+        }
+
+        /* === BACK TO TOP === */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            border: none;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+        }
+
+        /* === WHATSAPP BUTTON === */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 999;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: var(--transition);
+            animation: pulse-whatsapp 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse-whatsapp {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* === CART SIDEBAR === */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 400px;
+            max-width: 90vw;
+            height: 100%;
+            background: var(--primary);
+            border-left: 1px solid var(--gray-800);
+            z-index: 10001;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--gray-800);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .cart-close:hover {
+            color: var(--secondary);
+        }
+
+        .cart-body {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: var(--gray-500);
+        }
+
+        .cart-empty i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.3;
+        }
+
+        .cart-empty p {
+            font-size: 0.9rem;
+        }
+
+        .cart-footer {
+            padding: 25px;
+            border-top: 1px solid var(--gray-800);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .cart-total span {
+            font-weight: 600;
+        }
+
+        .cart-total .price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .cart-checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cart-checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* === SEARCH MODAL === */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 15vh;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .search-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-container {
+            width: 90%;
+            max-width: 600px;
+            transform: translateY(-20px);
+            transition: var(--transition);
+        }
+
+        .search-overlay.open .search-container {
+            transform: translateY(0);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-700);
+            border-radius: var(--radius-lg);
+            padding: 5px;
+            overflow: hidden;
+        }
+
+        .search-box i {
+            padding: 15px 20px;
+            color: var(--gray-500);
+            font-size: 1.1rem;
+        }
+
+        .search-box input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: var(--gray-600);
+        }
+
+        .search-close {
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            color: var(--gray-500);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text {
+                max-width: 100%;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .collections-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .banner {
+                grid-template-columns: 1fr;
+                padding: 50px;
+                text-align: center;
+            }
+
+            .banner-visual {
+                display: none;
+            }
+
+            .banner-timer {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                z-index: 999;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+                z-index: 1000;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .collections-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .hero-stats {
+                gap: 25px;
+            }
+
+            .banner {
+                padding: 30px;
+            }
+
+            .banner-title {
+                font-size: 2rem;
+            }
+
+            .banner-timer {
+                gap: 10px;
+            }
+
+            .timer-box {
+                padding: 10px 15px;
+            }
+
+            .timer-box .number {
+                font-size: 1.3rem;
+            }
+
+            .rating-summary {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .product-info {
+                padding: 12px;
+            }
+
+            .product-name {
+                font-size: 0.85rem;
+            }
+
+            .product-price .current {
+                font-size: 1rem;
+            }
+
+            .promo-bar {
+                font-size: 0.75rem;
+                padding: 8px 15px;
+            }
+        }
+
+        /* === ANIMATIONS ON SCROLL === */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADER -->
+    <div class="loader-wrapper" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">WINTERSHOP</div>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="promo-bar">
+            <span>🔥 40% DE DESCUENTO EN TODA LA WEB — Oferta por tiempo limitado</span>
+            <div class="promo-timer">
+                <span class="promo-timer-unit" id="promo-hours">00</span>:
+                <span class="promo-timer-unit" id="promo-mins">00</span>:
+                <span class="promo-timer-unit" id="promo-secs">00</span>
+            </div>
+        </div>
+        <div class="nav-main">
+            <a href="#" class="nav-logo">
+                <div class="logo-icon">❄️</div>
+                WINTERSHOP
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#colecciones">Colecciones</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#reviews">Reseñas</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="nav-action-btn" onclick="openSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="nav-action-btn" onclick="openCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SEARCH MODAL -->
+    <div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)">
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar productos, colecciones..." autofocus>
+                <button class="search-close" onclick="closeSearchBtn()">ESC</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>🛒 Tu Carrito</h3>
+            <button class="cart-close" onclick="closeCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-body">
+            <div class="cart-empty">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total estimado</span>
+                <span class="price">$0 COP</span>
+            </div>
+            <button class="cart-checkout-btn">Finalizar compra</button>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-bg-elements">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-orb hero-orb-3"></div>
+            <div class="hero-grid"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Nueva Colección 2025
+                </div>
+                <h1 class="hero-title">
+                    Eleva tu <span class="highlight">estilo</span> al siguiente nivel
+                </h1>
+                <p class="hero-description">
+                    Descubre la mejor selección de streetwear y moda urbana en Colombia. Prendas exclusivas con la mejor calidad a precios increíbles.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#productos" class="btn btn-primary">
+                        <i class="fas fa-bolt"></i> Comprar ahora
+                    </a>
+                    <a href="#colecciones" class="btn btn-outline">
+                        Ver colecciones <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">2K+</div>
+                        <div class="hero-stat-label">Clientes felices</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">500+</div>
+                        <div class="hero-stat-label">Productos</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">4.9</div>
+                        <div class="hero-stat-label">Calificación</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-container">
+                    <div class="hero-image-card">
+                        <div class="hero-image-placeholder">
+                            <i class="fas fa-tshirt"></i>
+                            <span>Tu imagen principal aquí</span>
+                            <span style="font-size:0.7rem; color:var(--gray-600)">(Reemplaza con tu foto)</span>
+                        </div>
+                    </div>
+                    <div class="hero-floating-card hero-floating-card-1">
+                        <div class="floating-icon green">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="floating-text">
+                            <h4>Envío gratis</h4>
+                            <p>Compras desde $110.000</p>
+                        </div>
+                    </div>
+                    <div class="hero-floating-card hero-floating-card-2">
+                        <div class="floating-icon purple">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="floating-text">
+                            <h4>Pago seguro</h4>
+                            <p>100% protegido</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-item"><i class="fas fa-fire"></i> Streetwear Premium</div>
+            <div class="marquee-item"><i class="fas fa-star"></i> +2000 Clientes Satisfechos</div>
+            <div class="marquee-item"><i class="fas fa-truck"></i> Envíos a toda Colombia</div>
+            <div class="marquee-item"><i class="fas fa-shield-alt"></i> Pagos 100% Seguros</div>
+            <div class="marquee-item"><i class="fas fa-tags"></i> 40% de Descuento</div>
+            <div class="marquee-item"><i class="fas fa-tshirt"></i> Calidad Garantizada</div>
+            <div class="marquee-item"><i class="fas fa-fire"></i> Streetwear Premium</div>
+            <div class="marquee-item"><i class="fas fa-star"></i> +2000 Clientes Satisfechos</div>
+            <div class="marquee-item"><i class="fas fa-truck"></i> Envíos a toda Colombia</div>
+            <div class="marquee-item"><i class="fas fa-shield-alt"></i> Pagos 100% Seguros</div>
+            <div class="marquee-item"><i class="fas fa-tags"></i> 40% de Descuento</div>
+            <div class="marquee-item"><i class="fas fa-tshirt"></i> Calidad Garantizada</div>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                <h3>Envío Gratis</h3>
+                <p>En compras desde $110.000 COP a toda Colombia</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Pago Seguro</h3>
+                <p>Tarjetas, PSE, Nequi, Daviplata y más</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3>Cambios Fáciles</h3>
+                <p>10 días para cambiar tu producto sin problema</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                <h3>Soporte 24/7</h3>
+                <p>Te acompañamos en todo el proceso</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLLECTIONS -->
+    <section class="collections" id="colecciones">
+        <div class="section-header reveal">
+            <div class="section-tag"><i class="fas fa-fire"></i> Trending</div>
+            <h2 class="section-title">Colecciones</h2>
+            <p class="section-subtitle">Explora nuestras categorías más populares</p>
+        </div>
+        <div class="collections-grid">
+            <div class="collection-card reveal">
+                <span class="collection-badge">Nuevo</span>
+                <div class="collection-card-bg">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="collection-overlay">
+                    <h3>Hoodies & Sacos</h3>
+                    <p>Estilo urbano con actitud</p>
+                </div>
+            </div>
+            <div class="collection-card reveal">
+                <span class="collection-badge">Popular</span>
+                <div class="collection-card-bg">
+                    <i class="fas fa-vest"></i>
+                </div>
+                <div class="collection-overlay">
+                    <h3>Conjuntos</h3>
+                    <p>Outfits completos listos para usar</p>
+                </div>
+            </div>
+            <div class="collection-card reveal">
+                <span class="collection-badge">Top</span>
+                <div class="collection-card-bg">
+                    <i class="fas fa-hat-wizard"></i>
+                </div>
+                <div class="collection-overlay">
+                    <h3>Accesorios</h3>
+                    <p>El toque final de tu look</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="products" id="productos">
+        <div class="section-header reveal">
+            <div class="section-tag"><i class="fas fa-bolt"></i> Shop</div>
+            <h2 class="section-title">Productos Destacados</h2>
+            <p class="section-subtitle">Lo más vendido de nuestra tienda</p>
+        </div>
+        <div class="products-tabs reveal">
+            <button class="tab-btn active">Todos</button>
+            <button class="tab-btn">Hoodies</button>
+            <button class="tab-btn">Conjuntos</button>
+            <button class="tab-btn">Camisetas</button>
+            <button class="tab-btn">Accesorios</button>
+        </div>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card reveal">
+                <div class="product-image">
+                    <div class="product-badges">
+                        <span class="product-badge badge-sale">-40%</span>
+                        <span class="product-badge badge-hot">🔥 Hot</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                        <button class="product-action-btn"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <i class="fas fa-tshirt"></i>
+                    <!-- Reemplaza con: <img src="tu-imagen.jpg" alt="Producto"> -->
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Hoodies</div>
+                    <h3 class="product-name">Saco Drip Pasamontañas</h3>
+                    <div class="product-rating">
+                        <div class="stars">★★★★★</div>
+                        <span>(128)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current">$66.000</span>
+                        <span class="original">$110.000</span>
+                        <span class="discount">-40%</span>
+                    </div>
+                    <button class="product-add-btn" onclick="addToCart()">
+                        <i class="fas fa-shopping-bag"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card reveal">
+                <div class="product-image">
+                    <div class="product-badges">
+                        <span class="product-badge badge-new">Nuevo</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                        <button class="product-action-btn"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Conjuntos</div>
+                    <h3 class="product-name">Conjunto Corto Deportivo Negro</h3>
+                    <div class="product-rating">
+                        <div class="stars">★★★★★</div>
+                        <span>(95)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current">$140.000</span>
+                        <span class="original">$233.000</span>
+                        <span class="discount">-40%</span>
+                    </div>
+                    <button class="product-add-btn" onclick="addToCart()">
+                        <i class="fas fa-shopping-bag"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card reveal">
+                <div class="product-image">
+                    <div class="product-badges">
+                        <span class="product-badge badge-sale">-40%</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                        <button class="product-action-btn"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Camisetas</div>
+                    <h3 class="product-name">Camiseta Oversize Urban</h3>
+                    <div class="product-rating">
+                        <div class="stars">★★★★☆</div>
+                        <span>(73)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current">$45.000</span>
+                        <span class="original">$75.000</span>
+                        <span class="discount">-40%</span>
+                    </div>
+                    <button class="product-add-btn" onclick="addToCart()">
+                        <i class="fas fa-shopping-bag"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card reveal">
+                <div class="product-image">
+                    <div class="product-badges">
+                        <span class="product-badge badge-hot">🔥 Hot</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                        <button class="product-action-btn"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Hoodies</div>
+                    <h3 class="product-name">Hoodie Streetwear Grafiti</h3>
+                    <div class="product-rating">
+                        <div class="stars">★★★★★</div>
+                        <span>(156)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current">$72.000</span>
+                        <span class="original">$120.000</span>
+                        <span class="discount">-40%</span>
+                    </div>
+                    <button class="product-add-btn" onclick="addToCart()">
+                        <i class="fas fa-shopping-bag"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card reveal">
+                <div class="product-image">
+                    <div class="product-badges">
+                        <span class="product-badge badge-new">Nuevo</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                        <button class="product-action-btn"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Conjuntos</div>
+                    <h3 class="product-name">Conjunto Cargo Completo</h3>
+                    <div class="product-rating">
+                        <div class="stars">★★★★★</div>
+                        <span>(89)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current">$165.000</span>
+                        <span class="original">$275.000</span>
+                        <span class="discount">-40%</span>
+                    </div>
+                    <button class="product-add-btn" onclick="addToCart()">
+                        <i class="fas fa-shopping-bag"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card reveal">
+                <div class="product-image">
+                    <div class="product-badges">
+                        <span class="product-badge badge-sale">-40%</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                        <button class="product-action-btn"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Accesorios</div>
+                    <h3 class="product-name">Gorra Snapback Premium</h3>
+                    <div class="product-rating">
+                        <div class="stars">★★★★★</div>
+                        <span>(44)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current">$35.000</span>
+                        <span class="original">$58.000</span>
+                        <span class="discount">-40%</span>
+                    </div>
+                    <button class="product-add-btn" onclick="addToCart()">
+                        <i class="fas fa-shopping-bag"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card reveal">
+                <div class="product-image">
+                    <div class="product-badges">
+                        <span class="product-badge badge-hot">🔥 Hot</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                        <button class="product-action-btn"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Camisetas</div>
+                    <h3 class="product-name">Camiseta Vintage Lavada</h3>
+                    <div class="product-rating">
+                        <div class="stars">★★★★☆</div>
+                        <span>(67)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current">$48.000</span>
+                        <span class="original">$80.000</span>
+                        <span class="discount">-40%</span>
+                    </div>
+                    <button class="product-add-btn" onclick="addToCart()">
+                        <i class="fas fa-shopping-bag"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card reveal">
+                <div class="product-image">
+                    <div class="product-badges">
+                        <span class="product-badge badge-new">Nuevo</span>
+                        <span class="product-badge badge-sale">-40%</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                        <button class="product-action-btn"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Hoodies</div>
+                    <h3 class="product-name">Hoodie Zip Essential</h3>
+                    <div class="product-rating">
+                        <div class="stars">★★★★★</div>
+                        <span>(112)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current">$78.000</span>
+                        <span class="original">$130.000</span>
+                        <span class="discount">-40%</span>
+                    </div>
+                    <button class="product-add-btn" onclick="addToCart()">
+                        <i class="fas fa-shopping-bag"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BANNER PROMO -->
+    <section class="banner-section">
+        <div class="banner reveal">
+            <div class="banner-orb"></div>
+            <div class="banner-content">
+                <div class="banner-tag">🔥 Oferta Limitada</div>
+                <h2 class="banner-title">40% de descuento en toda la tienda</h2>
+                <p class="banner-desc">No dejes pasar esta oportunidad. Aprovecha antes de que se agoten las unidades disponibles.</p>
+                <div class="banner-timer">
+                    <div class="timer-box">
+                        <span class="number" id="timer-days">02</span>
+                        <span class="label">Días</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="number" id="timer-hours">18</span>
+                        <span class="label">Horas</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="number" id="timer-mins">45</span>
+                        <span class="label">Min</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="number" id="timer-secs">30</span>
+                        <span class="label">Seg</span>
+                    </div>
+                </div>
+                <a href="#productos" class="btn btn-primary">
+                    <i class="fas fa-bolt"></i> Comprar con descuento
+                </a>
+            </div>
+            <div class="banner-visual">
+                <div class="banner-image-placeholder">
+                    <i class="fas fa-tags"></i>
+                    <span style="font-size:0.85rem;">Imagen promo aquí</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reviews" id="reviews">
+        <div class="section-header reveal">
+            <div class="section-tag"><i class="fas fa-star"></i> Reviews</div>
+            <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+            <p class="section-subtitle">Reseñas reales de compradores verificados</p>
+        </div>
+
+        <div class="rating-summary reveal">
+            <div class="rating-big">
+                <div class="number">4.9</div>
+                <div class="stars">★★★★★</div>
+                <div class="count">Basado en 2,000+ reseñas</div>
+            </div>
+            <div class="rating-bars">
+                <div class="rating-bar-row">
+                    <span class="label">5</span>
+                    <div class="rating-bar"><div class="rating-bar-fill" style="width: 94%"></div></div>
+                    <span class="count">1904</span>
+                </div>
+                <div class="rating-bar-row">
+                    <span class="label">4</span>
+                    <div class="rating-bar"><div class="rating-bar-fill" style="width: 5%"></div></div>
+                    <span class="count">109</span>
+                </div>
+                <div class="rating-bar-row">
+                    <span class="label">3</span>
+                    <div class="rating-bar"><div class="rating-bar-fill" style="width: 1%"></div></div>
+                    <span class="count">12</span>
+                </div>
+                <div class="rating-bar-row">
+                    <span class="label">2</span>
+                    <div class="rating-bar"><div class="rating-bar-fill" style="width: 0%"></div></div>
+                    <span class="count">0</span>
+                </div>
+                <div class="rating-bar-row">
+                    <span class="label">1</span>
+                    <div class="rating-bar"><div class="rating-bar-fill" style="width: 0%"></div></div>
+                    <span class="count">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-grid">
+            <div class="review-card reveal">
+                <div class="review-header">
+                    <div class="review-avatar">SC</div>
+                    <div class="review-author">
+                        <h4>Santiago C.</h4>
+                        <p>Bogotá, Colombia</p>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Increíble calidad, el hoodie llegó tal cual como se ve en las fotos. El envío fue súper rápido, en 2 días ya lo tenía. 100% recomendado."</p>
+                <div class="review-verified"><i class="fas fa-check-circle"></i> Compra verificada</div>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-header">
+                    <div class="review-avatar">VM</div>
+                    <div class="review-author">
+                        <h4>Valentina M.</h4>
+                        <p>Medellín, Colombia</p>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Compré un conjunto completo y quedé fascinada. La tela es de excelente calidad y los acabados son perfectos. Definitivamente volveré a comprar."</p>
+                <div class="review-verified"><i class="fas fa-check-circle"></i> Compra verificada</div>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-header">
+                    <div class="review-avatar">DA</div>
+                    <div class="review-author">
+                        <h4>Daniel A.</h4>
+                        <p>Cali, Colombia</p>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"La mejor tienda de streetwear que he encontrado en Colombia. Los precios son justos para la calidad que ofrecen. El saco pasamontañas es brutal."</p>
+                <div class="review-verified"><i class="fas fa-check-circle"></i> Compra verificada</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="section-header reveal">
+            <div class="section-tag"><i class="fas fa-question-circle"></i> FAQ</div>
+            <h2 class="section-title">Preguntas Frecuentes</h2>
+            <p class="section-subtitle">Resolvemos tus dudas más comunes</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>¿Qué métodos de pago aceptan?</h3>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Aceptamos tarjetas de crédito (Visa, MasterCard, American Express), tarjetas débito, PSE (Pagos Seguros en Línea), Nequi, Daviplata, Bancolombia y Efecty. Todos los pagos son 100% seguros.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>¿Hacen envíos a todo el país?</h3>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Sí, realizamos envíos a todo el territorio nacional colombiano. Los tiempos de entrega varían entre 2 a 4 días hábiles según tu ubicación. Ofrecemos envío gratis en compras superiores a $110.000 COP.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>¿Puedo cambiar un producto?</h3>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Sí. Aceptamos cambios dentro de los primeros 10 días después de recibir tu pedido, siempre que el producto esté en perfecto estado y con las etiquetas puestas. Contáctanos por nuestras redes sociales para gestionar tu cambio.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>¿Cómo puedo rastrear mi pedido?</h3>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Una vez tu pedido sea enviado, recibirás un correo electrónico con el número de guía y el enlace para rastrearlo en tiempo real. También puedes escribirnos por WhatsApp para consultar el estado.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>¿Por qué no ofrecen pago contraentrega?</h3>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Trabajamos únicamente con pagos anticipados para garantizar procesos más rápidos, evitar fraudes y mantener costos optimizados para ti. Tu compra está 100% protegida con número de guía, pruebas de entrega y acompañamiento en todo el proceso.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>¿Cómo sé qué talla me queda?</h3>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Cada producto maneja tallaje estándar colombiano. Si tienes dudas, puedes escribirnos por WhatsApp o nuestras redes sociales con tu peso y estatura, y con gusto te ayudamos a elegir la talla adecuada.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+        <div class="newsletter-container reveal">
+            <div class="newsletter-icon">
+                <i class="fas fa-envelope"></i>
+            </div>
+            <h2 class="section-title">Únete al Club Winter</h2>
+            <p class="section-subtitle">Recibe ofertas exclusivas, lanzamientos y descuentos directamente en tu correo.</p>
+            <form class="newsletter-form" onsubmit="return false;">
+                <input type="email" class="newsletter-input" placeholder="Tu correo electrónico...">
+                <button class="btn btn-primary" type="submit">Suscribirme</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-icon">❄️</div>
+                    WINTERSHOP
+                </div>
+                <p>Tu tienda de streetwear y moda urbana en Colombia. Prendas exclusivas con la mejor calidad al mejor precio.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Tienda</h4>
+                <ul>
+                    <li><a href="#">Novedades</a></li>
+                    <li><a href="#">Más Vendidos</a></li>
+                    <li><a href="#">Hoodies</a></li>
+                    <li><a href="#">Conjuntos</a></li>
+                    <li><a href="#">Camisetas</a></li>
+                    <li><a href="#">Accesorios</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="#">Guía de Tallas</a></li>
+                    <li><a href="#">Rastrear Pedido</a></li>
+                    <li><a href="#">Cambios y Devoluciones</a></li>
+                    <li><a href="#">Métodos de Pago</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Política de Envío</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 WinterShop. Todos los derechos reservados.</p>
+            <div class="footer-payments">
+                <div class="payment-icon">VISA</div>
+                <div class="payment-icon">MC</div>
+                <div class="payment-icon">PSE</div>
+                <div class="payment-icon">NEQI</div>
+                <div class="payment-icon">DAVI</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- WHATSAPP -->
+    <a href="https://wa.me/57TUNUMERO" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // === LOADER ===
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // === NAVBAR SCROLL ===
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // === MOBILE MENU ===
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.getElementById('menuToggle');
+            navLinks.classList.toggle('open');
+            menuToggle.classList.toggle('active');
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+                document.getElementById('menuToggle').classList.remove('active');
+            });
+        });
+
+        // === CART ===
+        let cartItems = 0;
+
+        function openCart() {
+            document.getElementById('cartOverlay').classList.add('open');
+            document.getElementById('cartSidebar').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            document.getElementById('cartOverlay').classList.remove('open');
+            document.getElementById('cartSidebar').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function addToCart() {
+            cartItems++;
+            document.getElementById('cartCount').textContent = cartItems;
+            
+            // Animation feedback
+            const cartBtn = document.querySelector('.nav-action-btn .fa-shopping-bag');
+            cartBtn.parentElement.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                cartBtn.parentElement.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // === SEARCH ===
+        function openSearch() {
+            document.getElementById('searchOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                document.querySelector('.search-box input').focus();
+            }, 300);
+        }
+
+        function closeSearch(e) {
+            if (e.target === document.getElementById('searchOverlay')) {
+                document.getElementById('searchOverlay').classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeSearchBtn() {
+            document.getElementById('searchOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Close search with ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('searchOverlay').classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // === FAQ ===
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.faq-answer').style.maxHeight = '0';
+            });
+
+            // Open clicked if wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+                const answer = item.querySelector('.faq-answer');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        }
+
+        // === TABS ===
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // === BACK TO TOP ===
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // === COUNTDOWN TIMER ===
+        function startTimer() {
+            // Set end date to 3 days from now
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 3);
+            
+            function updateTimer() {
+                const now = new Date();
+                const diff = endDate - now;
+
+                if (diff <= 0) return;
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+                // Banner timer
+                document.getElementById('timer-days').textContent = String(days).padStart(2, '0');
+                document.getElementById('timer-hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('timer-mins').textContent = String(mins).padStart(2, '0');
+                document.getElementById('timer-secs').textContent = String(secs).padStart(2, '0');
+
+                // Promo bar timer
+                document.getElementById('promo-hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('promo-mins').textContent = String(mins).padStart(2, '0');
+                document.getElementById('promo-secs').textContent = String(secs).padStart(2, '0');
+            }
+
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        startTimer();
+
+        // === SCROLL REVEAL ===
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // === SMOOTH SCROLL FOR NAV LINKS ===
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // === PRODUCT WISHLIST TOGGLE ===
+        document.querySelectorAll('.product-action-btn .fa-heart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('far');
+                this.classList.toggle('fas');
+                this.style.color = this.classList.contains('fas') ? '#ef4444' : '';
+            });
+        });
+    </script>
+
+</body>
+</html>
